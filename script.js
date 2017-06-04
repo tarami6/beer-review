@@ -1,13 +1,46 @@
+var BeerReviewApp = function() {
+    var beers = [];
+
+    var addBeer = function(name, category, rate) {
+        beers.push({ name: name, category: category, rate: rate });
+        $(".beer-input").val("");
+        $(".category-input").val("");
+        $("select").val(0);
+    }
+
+    var updateBeers = function() {
+
+        $(".beers-list > li").remove();
+
+        for (var key in beers) {
+            console.log(beers[key].select);
+            $(".beers-list").append("<li> name: " + beers[key].name + " category: " + beers[key].category + " rate: " + beers[key].rate + "</li>");
+
+        }
+    }
+        return {
+            addBeer: addBeer,
+            updateBeers: updateBeers
+        }
+
+    
+
+};
+
 $(document).ready(function() {
     // onclick on the button Post , inserting the value to array and then using the update func
+    var app = BeerReviewApp();
     $('.post-beer').click(function() {
-
-        addBeer($('.beer-input').val(), $('.category-input').val(), $('select').val());
-        updateBeers();
+        var name = $('.beer-input').val();
+        var category = $('.category-input').val();
+        var rate = $('select').val();
+        app.addBeer(name, category, rate);
+        app.updateBeers();
     });
     // onclick sorting and reverse sorting of the array, print on the screen the data
     $(".post-sort").click(function() {
-    	//beers.sort()
+        //beers.sort()
+
         beers = quickSort(beers, 0, beers.length - 1);
         updateBeers();
     }, function() {
@@ -20,26 +53,11 @@ $(document).ready(function() {
 
 });
 // decleration of the array that holds input from the form
-var beers = [];
+
 // adding the input from form to array beers & and clean the value in the form
-var addBeer = function(name, category, rate) {
-    beers.push({ 'name': name, 'category': category, 'rate': rate });
-    $(".beer-input").val("");
-    $(".category-input").val("");
-    $("select").val(0);
-};
+
 // loop through the beers array, inside the loop append  li to ul inside section beers
-var updateBeers = function() {
 
-    $(".beers-list > li").remove();
-
-    for (var key in beers) {
-        console.log(beers[key].select);
-        $(".beers-list").append("<li> name: " + beers[key].name + " category: " + beers[key].category + " rate: " + beers[key].rate + "</li>");
-
-    }
-
-}
 
 //quick sort
 
